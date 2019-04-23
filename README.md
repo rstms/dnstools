@@ -13,8 +13,28 @@ Simple installation:
 ```pip install --upgrade https://github.com/rstms/dnstools/tarball/master```
 
 ### usage:
-command line help is available:
-```dns --help```
+`dns --help`
+```
+Usage: dns [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --verbose
+  --help     Show this message and exit.
+
+Commands:
+  cftodjb  outputs DOMAIN's cloudflare zone as djb tinydns data using...
+```
+
+`dns cftodjb --help`
+```
+Usage: dns cftodjb [OPTIONS] DOMAIN IP_ADDRESS
+
+  outputs DOMAIN's cloudflare zone as djb tinydns data using IP-ADDRESS
+
+Options:
+  --help  Show this message and exit.
+```
+
 
 ### module dependencies
   - cloudflare
