@@ -17,5 +17,5 @@ def cli(ctx, leasefile, domain):
     """output active dhcp clients from dhcpd.leases in tinydns-data format"""
     leases=IscDhcpLeases(leasefile)
     for r in leases.get_current().values():
-        if r.hostname:
-            ctx.echo('=%s.%s:%s' % (r.hostname, domain, r.ip)) 
+        hostname = r.hostname or 'host%s' % r.ip.split('.')[-1]
+        ctx.echo('=%s.%s:%s' % (hostname, domain, r.ip)) 
