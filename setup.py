@@ -3,7 +3,8 @@ from setuptools import setup
 setup(
     name='rstms-dnstools',
     version='1.0',
-    py_modules = ['dnstools'],
+    packages=['dnstools','dnstools.commands'],
+    include_package_data=True,
     install_requires = [
         'click',
         'cloudflare',
