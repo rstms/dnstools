@@ -44,4 +44,3 @@ Options:
 
   CloudFlare API requires email and token to be configured using the mechanisms described here: https://github.com/cloudflare/python-cloudflare
 
-

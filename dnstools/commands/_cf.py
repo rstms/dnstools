@@ -1,13 +1,8 @@
 #!/usr/bin/env
 
-import click
-import os
-import sys
-import socket
 import CloudFlare
-from pprint import pprint
 
-def _getzone(zone_name):
+def getzone(zone_name):
     """list records for a zone"""
 
     cf = CloudFlare.CloudFlare()
@@ -46,46 +41,3 @@ def _getzone(zone_name):
         #print('  %s' % repr(dns_record))
 
     return dns_records
-
-def _process_cname(r):
-    print('C%s:%s' %( r['name'], r['content']))
-
-def _process_txt(r):
-    print('\'%s:%s' %( r['name'], r['content']))
-
-def _process_mx(r):
-    # ignore MX
-    #print('@%s:%s:%s' %( r['name'], r['content']))
-    pass
-
-def _process_a(r):
-    print('=%s:%s' %( r['name'], r['content']))
-
-@click.group()
-@click.option('--verbose', is_flag=True, default=False)
-@click.pass_context
-def cli(ctx, verbose):
-    ctx.verbose = verbose
-
-@cli.command()
-@click.argument('domain')
-@click.argument('ip_address')
-@click.pass_context
-def cftodjb(ctx, domain, ip_address):
-    """outputs DOMAIN's cloudflare zone as djb tinydns data using IP-ADDRESS"""
-    zone = _getzone(domain)
-    fqdn = socket.gethostname().split('.')[0]
-    if not '.' in fqdn:
-        fqdn = '%s.%s' % (fqdn, domain)
-    print('.%s:%s:%s' % (domain, ip_address, fqdn))
-    for r in zone:
-        if r['type'] == 'CNAME':
-            _process_cname(r)
-        elif r['type'] == 'TXT':
-            _process_txt(r)
-        elif r['type'] == 'MX':
-            _process_mx(r)
-        elif r['type'] == 'A':
-            _process_a(r)
-        else:
-            exit('unknown DNS record type: %s' % r['type'])

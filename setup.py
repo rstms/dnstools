@@ -10,6 +10,6 @@ setup(
     ],
     entry_points = '''
         [console_scripts]
-        dns=dnstools:cli
+        dns=dnstools.cli:cli
     ''',
 )
