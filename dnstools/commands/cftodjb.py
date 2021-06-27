@@ -10,7 +10,7 @@ from dnstools.cli import pass_context
 def cli(ctx, domain, ip_address, hostname):
     """outputs DOMAIN's cloudflare zone as djb tinydns data using IP-ADDRESS"""
     zone = getzone(domain)
-    print('.%s:%s:%s' % (domain, ip_address, hostname))
+    #print('.%s:%s:%s' % (domain, ip_address, hostname))
     for r in zone:
         if r['type'] == 'CNAME':
             print('C%s:%s' %( r['name'], r['content']))
